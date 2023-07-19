@@ -1,6 +1,7 @@
 require './lib/park'
 require './lib/vehicle'
 require './lib/passenger'
+require 'pry'
 
 describe Park do
   before(:each) do
@@ -10,18 +11,24 @@ describe Park do
     @honda = Vehicle.new("2001", "Honda", "Civic")
     @revian = Vehicle.new("2023", "Revian", "Pickup")
     @highlander = Vehicle.new("2023", "Toyota", "Highlander")
+    @van = Vehicle.new("2023", "Toyota", "Van")
 
     @charlie = Passenger.new({"name" => "Charlie", "age" => 18})
     @jude = Passenger.new({"name" => "Jude", "age" => 20}) 
     @naomi = Passenger.new({"name" => "Naomi", "age" => 20}) 
     @jeff = Passenger.new({"name" => "Jeff", "age" => 20}) 
     @taylor = Passenger.new({"name" => "Taylor", "age" => 12})
+    @cici= Passenger.new({"name" => "Cici", "age" => 12})
     
     @honda.add_passenger(@charlie)
     @revian.add_passenger(@jude)
     @revian.add_passenger(@taylor)
     @highlander.add_passenger(@naomi)
     @highlander.add_passenger(@jeff)
+    @van.add_passenger(@jude)
+    @van.add_passenger(@taylor)
+    @van.add_passenger(@cici)
+
   end
   
   it "exists and has attributes" do
@@ -72,5 +79,27 @@ describe Park do
     @jelly_stone.add_vehicle(@highlander)
 
     expect(@jelly_stone.revenue).to eq(200)
+  end
+
+  it "can get all attendees names alphabetically" do
+    @jelly_stone.add_vehicle(@highlander)
+    @jelly_stone.add_vehicle(@van)
+
+    expect(@jelly_stone.all_attendees).to eq([@cici, @jeff, @jude, @naomi, @taylor])
+  end
+
+
+  it "can generate a list of minors alphabetically" do
+    @jelly_stone.add_vehicle(@highlander)
+    @jelly_stone.add_vehicle(@van)
+
+    expect(@jelly_stone.minors).to eq([@cici, @taylor])
+  end
+
+  it "can generate a list of majors alphabetically" do
+    @jelly_stone.add_vehicle(@highlander)
+    @jelly_stone.add_vehicle(@van)
+
+    expect(@jelly_stone.adults).to eq([@jeff, @jude, @naomi])
   end
 end
