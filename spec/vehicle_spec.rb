@@ -20,15 +20,15 @@ describe Vehicle do
   end
 
   it "#speeding? starts at false" do
-    expect(@vehicle).to be false
+    expect(@vehicle.speeding?).to be false
   end
 
   it "it can speed and change #speeding?" do
-    expect(@vehicle).to be false
+    expect(@vehicle.speeding?).to be false
     
-    vehicle.speed
+    @vehicle.speed
     
-    expect(@vehicle).to be true
+    expect(@vehicle.speeding?).to be true
   end
 
   it "starts with no passengers" do
