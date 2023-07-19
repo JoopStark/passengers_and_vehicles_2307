@@ -23,6 +23,20 @@ class Park
       end
     }
   end
+
+  def all_attendees
+    all_att = @vehicles.flat_map { |vehicle| vehicle.passengers}
+    all_att.sort_by { |attendee| attendee.name}
+  end
+
+  def minors
+    all_attendees.reject { |attendee| attendee.adult?}
+  end
+
+  def adults
+    all_attendees.select { |attendee| attendee.adult?}
+  end
+
 end
     
 
